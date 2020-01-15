@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http'
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
   items = [];//เก็บสินค้าเข้าตะกร้า
-  constructor() { }
+  constructor(
+    private http : HttpClient //parameter เพื่อgetค่าจากเว็บservice
+  ) { }
 
   addToCart(product){
     this.items.push(product);
@@ -19,5 +22,7 @@ export class CartService {
     this.items = [];
     return this.items;
   }
-
+  getShippingPrices(){
+    return this.http.get('assets/shipping.json');
+  }
 }
